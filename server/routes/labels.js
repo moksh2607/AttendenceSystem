@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Label = require('../models/Label');
+const auth = require('../middleware/auth');
 
-// list labels
+// list labels (public)
 router.get('/', async (req, res) => {
   try {
     const labels = await Label.find({}).limit(1000).exec();
@@ -13,8 +14,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// create label
-router.post('/', async (req, res) => {
+// create label (protected) - admin only
+router.post('/', auth, async (req, res) => {
   try {
     const { name, avatarUrl, descriptors } = req.body;
     const label = new Label({ name, avatarUrl, descriptors });

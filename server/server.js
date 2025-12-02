@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const attendanceRoutes = require('./routes/attendance');
 const labelRoutes = require('./routes/labels');
+const authRoutes = require('./routes/auth');
 
 require('dotenv').config();
 
@@ -20,6 +21,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
 
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/labels', labelRoutes);
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => res.json({ ok: true, message: 'Attendance backend running' }));
 
