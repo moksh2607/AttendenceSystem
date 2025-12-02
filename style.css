@@ -18,6 +18,7 @@ body {
     min-height: 100vh;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
+    overflow-x: hidden;
 }
 
 /* Header */
@@ -37,12 +38,19 @@ body {
 .site-title h1{margin:0;font-size:1.1rem;font-weight:600}
 .tagline{margin:0;font-size:0.8rem;color:var(--muted)}
 .status{font-size:0.85rem;color:var(--muted)}
+/* small admin badge in header */
+.header-admin{margin-top:6px;font-size:0.9rem;color:var(--muted)}
+/* small avatar + name in header */
+.header-admin{display:flex;align-items:center;gap:8px}
+.header-avatar{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);color:#e6eef8;font-weight:600;font-size:0.85rem}
+.header-avatar{background-size:cover;background-position:center}
+.header-admin-text{font-size:0.9rem;color:var(--muted)}
 
 /* Main area */
 .main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px}
 /* layout: video, controls and attendance log */
-.video-panel{display:flex;flex-direction:column;gap:18px;align-items:center;width:100%;max-width:1100px}
-.video-container{position:relative;width:600px;max-width:92vw}
+.video-panel{display:flex;flex-direction:column;gap:18px;align-items:center;width:100%;max-width:1100px;padding:0 12px}
+.video-container{position:relative;width:100%;max-width:600px;min-width:0}
 
 /* On wider screens put controls and log to the right of video */
 @media (min-width:980px){
@@ -51,7 +59,7 @@ body {
     .controls{width:320px}
     .attendance-log{width:320px}
 }
-video{display:block;width:100%;height:auto;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.6);background:#000}
+video{display:block;width:100%;height:auto;max-height:70vh;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.6);background:#000}
 
 /* overlay canvas (face-api draws into this) */
 canvas{
@@ -140,6 +148,9 @@ canvas{
     overflow:hidden;
     background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(6,182,212,0.09));
 }
+.auth-card{ display:flex; border-radius:12px; overflow:hidden; box-shadow:0 30px 80px rgba(2,6,23,0.7); width:100% }
+.auth-left{ flex:1 1 48%; min-width:0 }
+.auth-right{ flex:1 1 52%; min-width:0; background: rgba(7,10,18,0.98); padding:28px }
 
 .auth-illustration::before,
 .auth-illustration::after{
@@ -184,6 +195,8 @@ canvas{
 @media (max-width:880px){
     .auth-grid{ flex-direction:column; min-height: auto }
     .auth-illustration{ height:160px }
+    .auth-card{ flex-wrap:wrap }
+    .auth-left, .auth-right{ width:100% }
 }
 
 /* Landing choice buttons */
@@ -203,3 +216,26 @@ canvas{
 .forgot-link{ color:var(--muted); opacity:0.9 }
 .auth-actions{ display:flex; align-items:center; gap:8px; margin-top:4px }
 .admin-modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1290 }
+
+.auth-page{ min-height:100vh; display:flex; align-items:center; justify-content:center }
+.auth-main{ width:92%; max-width:1000px }
+.auth-heading{ margin:0;font-size:1.6rem }
+.auth-lead{ margin:6px 0 14px;color:var(--muted) }
+.form-row{ display:flex;align-items:center;gap:12px;margin-top:10px }
+
+/* inputs with icon */
+.field{ margin-bottom:6px }
+.field-row{ display:flex;align-items:center;gap:8px }
+.field-row .icon{ color:var(--muted); opacity:0.9 }
+.field-row input{ flex:1 }
+.session-input:focus{ outline:0; box-shadow:0 6px 18px rgba(12,10,26,0.6); border-color:rgba(255,255,255,0.12); background:rgba(255,255,255,0.04) }
+.field-error{ color:#ffb4b4; font-size:0.85rem; min-height:18px; margin-top:6px }
+
+/* transitions */
+.fade-out{ animation:fadeOut 220ms ease forwards }
+.slide-in{ animation:slideIn 300ms cubic-bezier(.2,.9,.2,1) }
+@keyframes fadeOut{ from{opacity:1} to{opacity:0} }
+@keyframes slideIn{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)} }
+
+/* small niceties */
+.btn:focus, .choice-btn:focus, .session-input:focus{ outline:3px solid rgba(16,185,129,0.12); outline-offset:2px }
